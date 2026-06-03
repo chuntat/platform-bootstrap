@@ -1,0 +1,20 @@
+name: Platform Bootstrap
+
+on:
+  workflow_dispatch:
+
+jobs:
+  bootstrap:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Bootstrap Platform
+        run: |
+          echo "Install MLflow"
+          echo "Install Prometheus"
+          echo "Install Grafana"
