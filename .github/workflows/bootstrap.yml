@@ -25,3 +25,7 @@ jobs:
       - name: Verify Nebius CLI
         run: |
           ~/.nebius/bin/nebius version
+
+      - name: Verify Token Secret
+        run: |
+          echo "Token length: ${#NEBIUS_TOKEN}"
