@@ -8,13 +8,16 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    env:
+      NEBIUS_TOKEN: ${{ secrets.NEBIUS_TOKEN }}
+      PROJECT_ID: ${{ secrets.PROJECT_ID }}
+      CLUSTER_ID: ${{ secrets.CLUSTER_ID }}
+
     steps:
 
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Bootstrap Platform
+      - name: Show Cluster
         run: |
-          echo "Install MLflow"
-          echo "Install Prometheus"
-          echo "Install Grafana"
+          echo "Cluster ID: $CLUSTER_ID"
