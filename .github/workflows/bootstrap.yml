@@ -9,7 +9,6 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      PROJECT_ID: ${{ secrets.PROJECT_ID }}
       CLUSTER_ID: ${{ secrets.CLUSTER_ID }}
       NEBIUS_SERVICE_ACCOUNT_JSON: ${{ secrets.NEBIUS_SERVICE_ACCOUNT_JSON }}
 
@@ -26,18 +25,18 @@ jobs:
         run: |
           ~/.nebius/bin/nebius version
 
-      - name: Create Service Account Credential File
+      - name: Create Service Account File
         run: |
-          echo "$NEBIUS_SERVICE_ACCOUNT_JSON" > sa.json
+          cat > sa.json << 'EOF'
+          ${{ secrets.NEBIUS_SERVICE_ACCOUNT_JSON }}
+          EOF
 
-      - name: Verify Credential File Exists
+      - name: Create Nebius Profile
         run: |
-          ls -lh sa.json
+          ~/.nebius/bin/nebius profile create \
+            ci-profile \
+            --service-account-file sa.json
 
-      # Authentication step
-      # We'll verify the exact syntax from Nebius docs
-      # before filling this in.
-
-      - name: Show Cluster ID
+      - name: List Clusters
         run: |
-          echo "Cluster ID configured"
+          ~/.nebius/bin/nebius mk8s cluster list
