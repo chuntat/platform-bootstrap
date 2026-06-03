@@ -18,6 +18,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Show Cluster
+      - name: Install Nebius CLI
         run: |
-          echo "Cluster ID: $CLUSTER_ID"
+          curl -sSL https://storage.eu-north1.nebius.cloud/cli/install.sh | bash
+
+      - name: Verify Nebius CLI
+        run: |
+          ~/.nebius/bin/nebius version
